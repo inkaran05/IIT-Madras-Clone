@@ -1,173 +1,377 @@
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('IIT Madras Clone site loaded successfully!');
+document.addEventListener('DOMContentLoaded', function () {
+  const menuToggle = document.getElementById('menu-toggle');
+  const navLinks = document.getElementById('nav-links');
 
-    // Dropdown menu interactivity for mobile and click toggle
-    const dropdowns = document.querySelectorAll('.dropdown');
-    dropdowns.forEach(dropdown => {
-        const dropbtn = dropdown.querySelector('.dropbtn');
-        dropbtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            this.nextElementSibling.classList.toggle('show');
+  if (menuToggle && navLinks) {
+    menuToggle.addEventListener('click', function () {
+      navLinks.classList.toggle('active');
+    });
+  }
+
+  // Smooth scrolling for anchor links
+  const anchorLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+  anchorLinks.forEach(link => {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href').substring(1);
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        window.scrollTo({
+          top: targetElement.offsetTop - 60, // Adjust for navbar height
+          behavior: 'smooth'
         });
+      }
+      // Close mobile menu after click
+      if (navLinks.classList.contains('active')) {
+        navLinks.classList.remove('active');
+      }
+    });
+  });
+
+  // Active link highlighting on scroll
+  const sections = Array.from(document.querySelectorAll('section[id]'));
+  const navItems = document.querySelectorAll('.nav-links a');
+
+  function onScroll() {
+    const scrollPos = window.scrollY + 70; // Offset for navbar height
+    let currentSectionId = '';
+    for (const section of sections) {
+      if (section.offsetTop <= scrollPos) {
+        currentSectionId = section.id;
+      }
+    }
+    navItems.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + currentSectionId) {
+        link.classList.add('active');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', onScroll);
+  onScroll(); // Initialize on page load
+
+  // ===== Rank Prediction Logic with IIT Comparison and Chart.js =====
+
+  const form = document.getElementById('predictForm');
+  const rankInput = document.getElementById('rankInput');
+  const categoryInput = document.getElementById('categoryInput');
+  const output = document.getElementById('predictionOutput');
+  const chartCanvas = document.getElementById('rankChart');
+  let chartInstance;
+
+  // Cutoff data for multiple IITs including new IITs: Kharagpur, Roorkee, Guwahati
+  const cutoffData = {
+    madras: {
+      general: [
+        { branch: "CSE", maxRank: 200 },
+        { branch: "EE", maxRank: 600 },
+        { branch: "ME", maxRank: 1200 },
+        { branch: "Aero", maxRank: 2000 },
+        { branch: "Civil", maxRank: 4000 }
+      ],
+      obc: [
+        { branch: "CSE", maxRank: 500 },
+        { branch: "EE", maxRank: 1200 },
+        { branch: "ME", maxRank: 2000 },
+        { branch: "Aero", maxRank: 3000 },
+        { branch: "Civil", maxRank: 5000 }
+      ],
+      sc: [
+        { branch: "CSE", maxRank: 1000 },
+        { branch: "EE", maxRank: 2000 },
+        { branch: "ME", maxRank: 3000 },
+        { branch: "Aero", maxRank: 4000 },
+        { branch: "Civil", maxRank: 6000 }
+      ],
+      st: [
+        { branch: "CSE", maxRank: 1500 },
+        { branch: "EE", maxRank: 2500 },
+        { branch: "ME", maxRank: 3500 },
+        { branch: "Aero", maxRank: 4500 },
+        { branch: "Civil", maxRank: 7000 }
+      ]
+    },
+    bombay: {
+      general: [
+        { branch: "CSE", maxRank: 70 },
+        { branch: "EE", maxRank: 300 },
+        { branch: "ME", maxRank: 1000 },
+        { branch: "Aero", maxRank: 1800 },
+        { branch: "Civil", maxRank: 3500 }
+      ],
+      obc: [
+        { branch: "CSE", maxRank: 200 },
+        { branch: "EE", maxRank: 700 },
+        { branch: "ME", maxRank: 1500 },
+        { branch: "Aero", maxRank: 2500 },
+        { branch: "Civil", maxRank: 4500 }
+      ],
+      sc: [
+        { branch: "CSE", maxRank: 400 },
+        { branch: "EE", maxRank: 1200 },
+        { branch: "ME", maxRank: 2500 },
+        { branch: "Aero", maxRank: 3500 },
+        { branch: "Civil", maxRank: 5500 }
+      ],
+      st: [
+        { branch: "CSE", maxRank: 600 },
+        { branch: "EE", maxRank: 1500 },
+        { branch: "ME", maxRank: 3000 },
+        { branch: "Aero", maxRank: 4000 },
+        { branch: "Civil", maxRank: 6000 }
+      ]
+    },
+    delhi: {
+      general: [
+        { branch: "CSE", maxRank: 110 },
+        { branch: "EE", maxRank: 400 },
+        { branch: "ME", maxRank: 1100 },
+        { branch: "Aero", maxRank: 1900 },
+        { branch: "Civil", maxRank: 3800 }
+      ],
+      obc: [
+        { branch: "CSE", maxRank: 300 },
+        { branch: "EE", maxRank: 900 },
+        { branch: "ME", maxRank: 1800 },
+        { branch: "Aero", maxRank: 2800 },
+        { branch: "Civil", maxRank: 4800 }
+      ],
+      sc: [
+        { branch: "CSE", maxRank: 600 },
+        { branch: "EE", maxRank: 1500 },
+        { branch: "ME", maxRank: 2800 },
+        { branch: "Aero", maxRank: 3800 },
+        { branch: "Civil", maxRank: 5800 }
+      ],
+      st: [
+        { branch: "CSE", maxRank: 800 },
+        { branch: "EE", maxRank: 1800 },
+        { branch: "ME", maxRank: 3200 },
+        { branch: "Aero", maxRank: 4200 },
+        { branch: "Civil", maxRank: 6200 }
+      ]
+    },
+    kanpur: {
+      general: [
+        { branch: "CSE", maxRank: 220 },
+        { branch: "EE", maxRank: 650 },
+        { branch: "ME", maxRank: 1400 },
+        { branch: "Aero", maxRank: 2100 },
+        { branch: "Civil", maxRank: 4200 }
+      ],
+      obc: [
+        { branch: "CSE", maxRank: 500 },
+        { branch: "EE", maxRank: 1300 },
+        { branch: "ME", maxRank: 2500 },
+        { branch: "Aero", maxRank: 3500 },
+        { branch: "Civil", maxRank: 5500 }
+      ],
+      sc: [
+        { branch: "CSE", maxRank: 800 },
+        { branch: "EE", maxRank: 1800 },
+        { branch: "ME", maxRank: 3200 },
+        { branch: "Aero", maxRank: 4200 },
+        { branch: "Civil", maxRank: 6200 }
+      ],
+      st: [
+        { branch: "CSE", maxRank: 1000 },
+        { branch: "EE", maxRank: 2000 },
+        { branch: "ME", maxRank: 3500 },
+        { branch: "Aero", maxRank: 4500 },
+        { branch: "Civil", maxRank: 7000 }
+      ]
+    },
+    kharagpur: {
+      general: [
+        { branch: "CSE", maxRank: 270 },
+        { branch: "EE", maxRank: 650 },
+        { branch: "ME", maxRank: 1300 },
+        { branch: "Aero", maxRank: 2300 },
+        { branch: "Civil", maxRank: 4500 }
+      ],
+      obc: [
+        { branch: "CSE", maxRank: 600 },
+        { branch: "EE", maxRank: 1400 },
+        { branch: "ME", maxRank: 2300 },
+        { branch: "Aero", maxRank: 3300 },
+        { branch: "Civil", maxRank: 5500 }
+      ],
+      sc: [
+        { branch: "CSE", maxRank: 900 },
+        { branch: "EE", maxRank: 1900 },
+        { branch: "ME", maxRank: 2800 },
+        { branch: "Aero", maxRank: 3800 },
+        { branch: "Civil", maxRank: 6200 }
+      ],
+      st: [
+        { branch: "CSE", maxRank: 1100 },
+        { branch: "EE", maxRank: 2100 },
+        { branch: "ME", maxRank: 3200 },
+        { branch: "Aero", maxRank: 4300 },
+        { branch: "Civil", maxRank: 7000 }
+      ]
+    },
+    roorkee: {
+      general: [
+        { branch: "CSE", maxRank: 350 },
+        { branch: "EE", maxRank: 900 },
+        { branch: "ME", maxRank: 1500 },
+        { branch: "Aero", maxRank: 2500 },
+        { branch: "Civil", maxRank: 4700 }
+      ],
+      obc: [
+        { branch: "CSE", maxRank: 700 },
+        { branch: "EE", maxRank: 1600 },
+        { branch: "ME", maxRank: 2800 },
+        { branch: "Aero", maxRank: 3800 },
+        { branch: "Civil", maxRank: 6000 }
+      ],
+      sc: [
+        { branch: "CSE", maxRank: 1000 },
+        { branch: "EE", maxRank: 2100 },
+        { branch: "ME", maxRank: 3500 },
+        { branch: "Aero", maxRank: 4500 },
+        { branch: "Civil", maxRank: 7000 }
+      ],
+      st: [
+        { branch: "CSE", maxRank: 1200 },
+        { branch: "EE", maxRank: 2300 },
+        { branch: "ME", maxRank: 4000 },
+        { branch: "Aero", maxRank: 4800 },
+        { branch: "Civil", maxRank: 7500 }
+      ]
+    },
+    guwahati: {
+      general: [
+        { branch: "CSE", maxRank: 400 },
+        { branch: "EE", maxRank: 1000 },
+        { branch: "ME", maxRank: 1700 },
+        { branch: "Aero", maxRank: 2600 },
+        { branch: "Civil", maxRank: 4800 }
+      ],
+      obc: [
+        { branch: "CSE", maxRank: 800 },
+        { branch: "EE", maxRank: 1800 },
+        { branch: "ME", maxRank: 3200 },
+        { branch: "Aero", maxRank: 4200 },
+        { branch: "Civil", maxRank: 6500 }
+      ],
+      sc: [
+        { branch: "CSE", maxRank: 1100 },
+        { branch: "EE", maxRank: 2300 },
+        { branch: "ME", maxRank: 3800 },
+        { branch: "Aero", maxRank: 4800 },
+        { branch: "Civil", maxRank: 7000 }
+      ],
+      st: [
+        { branch: "CSE", maxRank: 1300 },
+        { branch: "EE", maxRank: 2500 },
+        { branch: "ME", maxRank: 4000 },
+        { branch: "Aero", maxRank: 5000 },
+        { branch: "Civil", maxRank: 7500 }
+      ]
+    }
+  };
+
+  function predictByIIT(iit, rank, category) {
+    const data = cutoffData[iit]?.[category];
+    if (!data) return [];
+    return data.filter(branch => rank <= branch.maxRank);
+  }
+
+  function buildChart() {
+    const labels = ["CSE", "EE", "ME", "Aero", "Civil"];
+    const categories = Object.keys(cutoffData);
+    const datasets = categories.map((iit, idx) => {
+      return {
+        label: iit.toUpperCase(),
+        data: cutoffData[iit].general.map(d => d.maxRank),
+        backgroundColor: `hsl(${idx * 50}, 70%, 60%)`
+      };
     });
 
-    // Close dropdown if clicked outside
-    window.addEventListener('click', function(e) {
-        dropdowns.forEach(dropdown => {
-            if (!dropdown.contains(e.target)) {
-                dropdown.querySelector('.dropdown-content').classList.remove('show');
-            }
-        });
-    });
+    if (chartInstance) chartInstance.destroy();
 
-    // Simple news/events slider (auto-scroll)
-    const newsList = document.getElementById('news-list');
-    if (newsList) {
-        let scrollAmount = 0;
-        setInterval(() => {
-            scrollAmount += 1;
-            if (scrollAmount >= newsList.scrollHeight - newsList.clientHeight) {
-                scrollAmount = 0;
-            }
-            newsList.scrollTop = scrollAmount;
-        }, 100);
-    }
-
-    // Popup notification close button
-    const popup = document.getElementById('popupNotification');
-    const closeBtn = document.getElementById('closePopup');
-    if (popup && closeBtn) {
-        closeBtn.addEventListener('click', () => {
-            popup.style.display = 'none';
-        });
-    }
-
-    // Predictor form logic
-    const predictorForm = document.getElementById('predictorForm');
-    const resultContent = document.getElementById('resultContent');
-
-    if (predictorForm) {
-        predictorForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const rank = parseInt(document.getElementById('rank').value);
-            const category = document.getElementById('category').value;
-            const branch = document.getElementById('branch').value;
-
-            // Static simulation logic for prediction based on rank and category
-            // This is a simplified example using hypothetical rank ranges
-
-            let predictedIITs = [];
-            let predictedCourses = [];
-
-            // Define rank ranges for categories (simplified)
-            const rankRanges = {
-                GEN: [1, 10000],
-                OBC: [1, 15000],
-                SC: [1, 20000],
-                ST: [1, 25000]
-            };
-
-            // Check if rank is within category range
-            if (rank < rankRanges[category][0] || rank > rankRanges[category][1]) {
-                resultContent.innerHTML = `<p>Your rank is outside the expected range for category ${category}. Please check your input.</p>`;
-                return;
-            }
-
-            // Predict IITs based on rank (simplified)
-            if (rank <= 1000) {
-                predictedIITs = ['IIT Madras', 'IIT Bombay', 'IIT Delhi'];
-            } else if (rank <= 5000) {
-                predictedIITs = ['IIT Kanpur', 'IIT Kharagpur', 'IIT Roorkee'];
-            } else if (rank <= 10000) {
-                predictedIITs = ['IIT Guwahati', 'IIT Hyderabad', 'IIT BHU'];
-            } else {
-                predictedIITs = ['IIT Gandhinagar', 'IIT Ropar', 'IIT Patna'];
-            }
-
-            // Predict courses based on branch preference
-            const coursesByBranch = {
-                CSE: ['Computer Science and Engineering'],
-                ECE: ['Electronics and Communication Engineering'],
-                ME: ['Mechanical Engineering'],
-                CE: ['Civil Engineering'],
-                CH: ['Chemical Engineering'],
-                AE: ['Aerospace Engineering']
-            };
-
-            predictedCourses = coursesByBranch[branch] || [];
-
-            // Display results
-            let html = `<h3>Predicted IITs for Rank ${rank} (${category} category):</h3><ul>`;
-            predictedIITs.forEach(iit => {
-                html += `<li>${iit}</li>`;
-            });
-            html += `</ul>`;
-
-            html += `<h3>Predicted Course(s) for Branch: ${branch}</h3><ul>`;
-            predictedCourses.forEach(course => {
-                html += `<li>${course}</li>`;
-            });
-            html += `</ul>`;
-
-            resultContent.innerHTML = html;
-        });
-    }
-
-    // Events data array
-    const events = [
-        {
-            title: "Convocation Ceremony 2023",
-            date: "2023-07-15",
-            time: "10:00 AM",
-            description: "Annual convocation ceremony for graduating students.",
-            venue: "Main Auditorium"
-        },
-        {
-            title: "Tech Symposium",
-            date: "2023-08-05",
-            time: "09:00 AM",
-            description: "A symposium showcasing latest research and innovations.",
-            venue: "Engineering Block"
-        },
-        {
-            title: "Alumni Meet 2023",
-            date: "2023-09-10",
-            time: "05:00 PM",
-            description: "Gathering of IIT Madras alumni from around the world.",
-            venue: "Conference Hall"
-        },
-        {
-            title: "Cultural Fest",
-            date: "2023-10-20",
-            time: "11:00 AM",
-            description: "Annual cultural festival with music, dance, and drama.",
-            venue: "Open Grounds"
+    chartInstance = new Chart(chartCanvas, {
+      type: 'bar',
+      data: {
+        labels,
+        datasets
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          title: {
+            display: true,
+            text: 'Branch-wise General Category Closing Ranks'
+          }
         }
-    ];
+      }
+    });
+  }
 
-    // Function to render events dynamically
-    function renderEvents() {
-        const eventsList = document.getElementById('eventsList');
-        if (!eventsList) return;
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
 
-        eventsList.innerHTML = '';
-
-        events.forEach(event => {
-            const eventCard = document.createElement('div');
-            eventCard.className = 'event-card';
-
-            eventCard.innerHTML = `
-                <h3 class="event-title">${event.title}</h3>
-                <p class="event-date-time"><strong>Date:</strong> ${event.date} | <strong>Time:</strong> ${event.time}</p>
-                <p class="event-description">${event.description}</p>
-                <p class="event-venue"><strong>Venue:</strong> ${event.venue}</p>
-            `;
-
-            eventsList.appendChild(eventCard);
-        });
+    const rank = parseInt(rankInput.value);
+    const category = categoryInput.value.toLowerCase();
+    if (!rank || !category) {
+      output.innerHTML = "Please enter a valid rank and category.";
+      return;
     }
 
-    // Call renderEvents on DOMContentLoaded
-    renderEvents();
+    const predictionGrid = document.getElementById('predictionGrid');
+    if (!predictionGrid) return;
+
+    predictionGrid.innerHTML = ''; // Clear previous results
+
+    Object.keys(cutoffData).forEach(iit => {
+      const matched = predictByIIT(iit, rank, category);
+      if (matched.length) {
+        let iitSection = `<div>
+          <h3 class="text-xl font-semibold text-${getIITColor(iit)} mb-2">${iit.toUpperCase()}</h3>
+          <ul class="space-y-1 text-green-700">`;
+        matched.forEach(b => {
+          iitSection += `<li>✅ ${b.branch}</li>`;
+        });
+        iitSection += '</ul></div>';
+        predictionGrid.innerHTML += iitSection;
+      }
+    });
+
+    if (predictionGrid.innerHTML.trim() === '') {
+      predictionGrid.innerHTML = `<p style="color:red;">No matches found in top IITs for your rank.</p>`;
+    }
+
+    buildChart();
+  });
+
+  function getIITColor(iit) {
+    switch (iit) {
+      case 'madras': return 'red-700';
+      case 'bombay': return 'yellow-600';
+      case 'delhi': return 'blue-700';
+      case 'kanpur': return 'purple-700';
+      case 'kharagpur': return 'pink-700';
+      case 'roorkee': return 'teal-700';
+      case 'guwahati': return 'orange-700';
+      default: return 'gray-700';
+    }
+  }
+
+  // ===== PDF EXPORT =====
+  document.getElementById('exportPDF').addEventListener('click', () => {
+    const element = document.getElementById('predictionResult');
+
+    const opt = {
+      margin: 0.5,
+      filename: 'iit_rank_prediction.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+
+    html2pdf().set(opt).from(element).save();
+  });
 });

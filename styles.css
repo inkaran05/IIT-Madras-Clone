@@ -1,266 +1,328 @@
-/* Maroon color theme for IIT Madras Clone */
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
+  font-family: 'Poppins', sans-serif;
+  background-color: #f9f9f9;
+  color: #111;
+  line-height: 1.6;
 }
 
-header {
-    background: #800000; /* Maroon */
-    color: #fff;
-    padding: 10px 10px 20px 10px;
-    text-align: center;
-    position: relative;
+/* Container */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.header-logo {
-    max-width: 80px;
-    position: absolute;
-    top: 10px;
-    left: 20px;
+/* Navbar */
+.navbar {
+  background-color: #800000;
+  color: #fff;
+  padding: 15px 30px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.nav-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .logo {
-    margin: 0;
-    font-size: 1.8rem;
-    font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.established {
-    margin: 0;
-    font-size: 1rem;
-    font-style: italic;
-    color: #f0d9d9;
-    margin-top: 5px;
+.logo img {
+  height: 40px;
 }
 
-.header-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 20px;
 }
 
-nav {
-    margin: 20px 0;
+.nav-links li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
 }
 
-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+.nav-links li a.active,
+.nav-links li a:hover {
+  background-color: #b22222;
 }
 
-nav ul li {
-    display: inline-block;
-    margin: 0 15px;
-    position: relative;
+/* Menu toggle button */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: #fff;
+  cursor: pointer;
 }
 
-nav a {
-    text-decoration: none;
-    color: #800000; /* Maroon */
-    font-weight: bold;
-}
-
-nav a:hover, nav a:focus {
-    color: #4b0000;
-}
-
-.dropdown .dropbtn, .dropbtn {
-    cursor: pointer;
-    background-color: #800000;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    font-size: 1rem;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
-}
-
-.dropdown .dropbtn:hover, .dropdown .dropbtn:focus, .dropbtn:hover, .dropbtn:focus {
-    background-color: #4b0000;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-    z-index: 1;
-    top: 100%;
-    left: 0;
-}
-
-.dropdown-content a {
-    color: #800000;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown-content a:hover {
-    background-color: #f1f1f1;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-main {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    background: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
+/* Hero Section */
 .hero {
-    text-align: center;
-    padding: 40px 20px;
-    background-color: #f9e6e6;
-    border-radius: 5px;
-    margin-bottom: 30px;
+  position: relative;
+  background-image: url('https://www.iitm.ac.in/sites/default/files/styles/hero_image/public/2022-10/IITM-campus.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
 }
 
-.hero-logo {
-    max-width: 150px;
-    margin-bottom: 20px;
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 0;
 }
 
-.features {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    margin-bottom: 30px;
+.hero-text {
+  position: relative;
+  z-index: 1;
+  max-width: 700px;
+  padding: 0 20px;
 }
 
-.feature {
-    flex: 1;
-    text-align: center;
+.hero-text h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  font-weight: 600;
 }
 
-.feature img {
-    max-width: 100%;
-    border-radius: 5px;
-    margin-bottom: 15px;
+.hero-text p {
+  font-size: 1.3rem;
+  margin-bottom: 30px;
 }
 
-.highlights ul, .news-events ul, .iit-list {
-    list-style-type: disc;
-    padding-left: 20px;
+.cta-btn {
+  background-color: #f7c948;
+  color: #000;
+  padding: 12px 30px;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
 
-.news-events ul {
-    max-height: 150px;
-    overflow-y: auto;
+.cta-btn:hover {
+  background-color: #d4af37;
 }
 
+/* About Section */
+.about {
+  padding: 60px 0;
+  background-color: #fff;
+  text-align: center;
+}
+
+.about h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.about p {
+  max-width: 700px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+/* Cards Section */
+.cards {
+  padding: 60px 0;
+  background-color: #f9f9f9;
+}
+
+.card-grid {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 300px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card h3 {
+  padding: 20px;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+/* CTA Section */
+.cta-section {
+  background-color: #800000;
+  color: white;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.cta-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.cta-section p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+.cta-btn-secondary {
+  background-color: transparent;
+  border: 2px solid #f7c948;
+  color: #f7c948;
+  padding: 12px 30px;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.cta-btn-secondary:hover {
+  background-color: #f7c948;
+  color: #000;
+}
+
+/* Footer */
 footer {
-    text-align: center;
-    padding: 10px 0;
-    background: #800000;
-    color: #fff;
-    position: relative;
-    bottom: 0;
-    width: 100%;
+  background-color: #111;
+  color: #fff;
+  text-align: center;
+  padding: 20px 0;
+  font-size: 0.9rem;
 }
 
-/* Responsive Design */
+/* Responsive */
 @media (max-width: 768px) {
-    nav ul li {
-        display: block;
-        margin: 10px 0;
-    }
-    .dropdown-content {
-        position: static;
-        box-shadow: none;
-    }
-    .features {
-        flex-direction: column;
-    }
-}
-
-/* Popup Notification Styles */
-.popup-notification {
-    position: fixed;
-    top: 20px;
-    right: 20px;
+  .nav-links {
+    display: none;
+    flex-direction: column;
     background-color: #800000;
-    color: white;
-    padding: 15px 20px;
+    position: absolute;
+    top: 60px;
+    right: 30px;
+    width: 180px;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(128, 0, 0, 0.7);
-    z-index: 1000;
+    padding: 10px;
+  }
+
+  .nav-links.active {
     display: flex;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .card-grid {
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    max-width: 300px;
+  }
+
+  .hero-text h1 {
+    font-size: 2rem;
+  }
 }
 
-.popup-notification button {
-    background: transparent;
-    border: none;
-    color: white;
-    font-size: 1.2rem;
-    cursor: pointer;
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* Events page styles */
-.events-container {
-    max-width: 1000px;
-    margin: 20px auto;
-    padding: 0 15px;
+.animate-fade-in {
+  animation: fadeIn 1.5s ease forwards;
 }
 
-.events-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
 }
 
-.event-card {
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    padding: 20px;
-    width: 280px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+.animate-pulse {
+  animation: pulse 2s infinite;
 }
 
-.event-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+/* Slider Styles */
+.hero {
+  position: relative;
+  height: 500px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  background: none !important; /* Remove static background */
 }
 
-.event-title {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-    color: #800000; /* Maroon */
+.slider-container {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
 }
 
-.event-date-time,
-.event-description,
-.event-venue {
-    margin-bottom: 8px;
-    color: #333;
-    font-size: 0.95em;
+.slider-image {
+  position: absolute;
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .events-list {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .event-card {
-        width: 90%;
-    }
+.slider-image.active {
+  opacity: 1;
+  z-index: 1;
 }

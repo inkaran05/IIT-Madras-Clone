@@ -1,141 +1,334 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>IIT Madras Clone - Home</title>
-    <link rel="stylesheet" href="styles.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IIT Madras - Official Clone</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Additional styles for animations and layout */
+    .section {
+      padding: 80px 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 12px;
+      margin-top: 20px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .section img:hover {
+      transform: scale(1.05);
+    }
+
+    .fade-in-up {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1s forwards;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Slider styles */
+    .slider-container {
+      position: relative;
+      max-width: 100%;
+      height: 400px;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      margin-bottom: 40px;
+    }
+
+    .slider-image {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .slider-image.active {
+      opacity: 1;
+      position: relative;
+    }
+
+    /* Rank Predictor Styles */
+    #rank-predictor {
+      background-color: #f9f9f9;
+      padding: 40px 20px;
+      border-radius: 12px;
+      max-width: 900px;
+      margin: 0 auto;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+
+    #rank-predictor h2 {
+      margin-bottom: 20px;
+      font-weight: 600;
+      font-size: 2rem;
+    }
+
+    #rank-predictor form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+
+    #rank-predictor label {
+      flex: 1 1 100%;
+      text-align: left;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    #rank-predictor input,
+    #rank-predictor select {
+      flex: 1 1 200px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    #rank-predictor button {
+      padding: 12px 30px;
+      background-color: #800000;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      flex: 1 1 150px;
+      align-self: flex-end;
+    }
+
+    #rank-predictor button:hover {
+      background-color: #b22222;
+    }
+
+    #predictionGrid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    #predictionGrid > div {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      width: 250px;
+      text-align: left;
+    }
+
+    #predictionGrid h3 {
+      margin-bottom: 10px;
+      font-weight: 700;
+      color: #800000;
+    }
+
+    #predictionGrid ul {
+      list-style: none;
+      padding-left: 0;
+      color: #2e7d32;
+    }
+
+    #predictionGrid ul li {
+      margin-bottom: 6px;
+    }
+
+    /* Chart container */
+    #chartContainer {
+      max-width: 900px;
+      margin: 40px auto 0;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      #rank-predictor form {
+        flex-direction: column;
+      }
+
+      #rank-predictor button {
+        flex: 1 1 100%;
+      }
+
+      #predictionGrid {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      #predictionGrid > div {
+        width: 90%;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="header-container">
-            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/IIT_Madras_Logo.svg/1200px-IIT_Madras_Logo.svg.png" alt="IIT Madras Logo" class="header-logo" />
-            <h1 class="logo">Indian Institute of Technology Madras</h1>
-            <p class="established">Established 1959</p>
-            <nav>
-                <ul class="main-nav">
-                    <li><a href="index.html" class="active">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="courses.html">Courses</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropbtn">Predictor ▼</a>
-                        <div class="dropdown-content">
-                            <a href="predictor.html">JEE Advanced 2025 Predictor</a>
-                        </div>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropbtn">Explore ▼</a>
-                        <div class="dropdown-content">
-                            <a href="events.html">Upcoming Events</a>
-                        </div>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropbtn">All IITs ▼</a>
-                        <div class="dropdown-content">
-                            <a href="#">IIT Bombay</a>
-                            <a href="#">IIT Delhi</a>
-                            <a href="#">IIT Kanpur</a>
-                            <a href="#">IIT Kharagpur</a>
-                            <a href="#">IIT Roorkee</a>
-                            <a href="#">IIT Guwahati</a>
-                            <a href="#">IIT Hyderabad</a>
-                            <a href="#">IIT BHU</a>
-                            <a href="#">IIT Gandhinagar</a>
-                            <a href="#">IIT Ropar</a>
-                            <a href="#">IIT Patna</a>
-                            <a href="#">IIT Indore</a>
-                            <a href="#">IIT Mandi</a>
-                            <a href="#">IIT Jodhpur</a>
-                            <a href="#">IIT (ISM) Dhanbad</a>
-                            <a href="#">IIT Bhubaneswar</a>
-                            <a href="#">IIT Palakkad</a>
-                            <a href="#">IIT Tirupati</a>
-                            <a href="#">IIT Varanasi</a>
-                            <a href="#">IIT Jammu</a>
-                            <a href="#">IIT Dharwad</a>
-                        </div>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-    <main>
-        <section class="popup-notification" id="popupNotification">
-            <p><strong>Current Courses:</strong> Admissions open for JEE Advanced 2025. Apply now!</p>
-            <button id="closePopup">X</button>
-        </section>
-        <section class="hero">
-            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/IIT_Madras_Logo.svg/1200px-IIT_Madras_Logo.svg.png" alt="IIT Madras Logo" class="hero-logo" />
-            <h2>Welcome to the Indian Institute of Technology Madras</h2>
-            <p>Leading the way in engineering, research, and innovation.</p>
-            <a href="about.html" class="btn-primary">Learn More</a>
-        </section>
-        <section class="features">
-            <div class="feature">
-                <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80" alt="Research" />
-                <h3>World-Class Research</h3>
-                <p>Cutting-edge research facilities and projects across multiple disciplines.</p>
-            </div>
-            <div class="feature">
-                <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=400&q=80" alt="Campus Life" />
-                <h3>Vibrant Campus Life</h3>
-                <p>A diverse and inclusive community with numerous clubs, events, and activities.</p>
-            </div>
-            <div class="feature">
-                <img src="https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?auto=format&fit=crop&w=400&q=80" alt="Innovation" />
-                <h3>Innovation & Entrepreneurship</h3>
-                <p>Strong support for startups and industry collaborations.</p>
-            </div>
-        </section>
-        <section class="news-events">
-            <h3>Latest News & Events</h3>
-            <ul>
-                <li>Convocation Ceremony 2023 scheduled for July 15.</li>
-                <li>New research center inaugurated for sustainable energy.</li>
-                <li>International conference on AI and Machine Learning hosted.</li>
-            </ul>
-        </section>
-        <section class="brochure">
-            <h3>Download Our Brochure</h3>
-            <p>Get detailed information about courses, campus life, and admissions.</p>
-            <a href="brochure.pdf" download class="btn-primary">Download Brochure (PDF)</a>
-        </section>
-        <section class="course-plan">
-            <h3>Course Plan</h3>
-            <p>Explore the detailed course plan for undergraduate and postgraduate programs.</p>
-            <a href="course-plan.html" class="btn-primary">View Course Plan</a>
-        </section>
-        <section class="all-iits">
-            <h3>Explore All IITs</h3>
-            <ul class="iit-list">
-                <li><a href="#">IIT Bombay</a></li>
-                <li><a href="#">IIT Delhi</a></li>
-                <li><a href="#">IIT Kanpur</a></li>
-                <li><a href="#">IIT Kharagpur</a></li>
-                <li><a href="#">IIT Roorkee</a></li>
-                <li><a href="#">IIT Guwahati</a></li>
-                <li><a href="#">IIT Hyderabad</a></li>
-                <li><a href="#">IIT BHU</a></li>
-                <li><a href="#">IIT Gandhinagar</a></li>
-                <li><a href="#">IIT Ropar</a></li>
-                <li><a href="#">IIT Patna</a></li>
-                <li><a href="#">IIT Indore</a></li>
-                <li><a href="#">IIT Mandi</a></li>
-                <li><a href="#">IIT Jodhpur</a></li>
-                <li><a href="#">IIT (ISM) Dhanbad</a></li>
-                <li><a href="#">IIT Bhubaneswar</a></li>
-                <li><a href="#">IIT Palakkad</a></li>
-                <li><a href="#">IIT Tirupati</a></li>
-                <li><a href="#">IIT Varanasi</a></li>
-                <li><a href="#">IIT Jammu</a></li>
-                <li><a href="#">IIT Dharwad</a></li>
-            </ul>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 IIT Madras Clone. All rights reserved.</p>
-    </footer>
-    <script src="script.js"></script>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container nav-content">
+      <div class="logo" style="display: flex; align-items: center; gap: 10px;">
+        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/5f/IIT_Madras_Logo.svg/1200px-IIT_Madras_Logo.svg.png" alt="IIT Madras Logo" />
+        <span style="color: white; font-weight: 700; font-size: 20px;">IIT Madras</span>
+      </div>
+      <nav>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="#home" class="active">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#academics">Academics</a></li>
+          <li><a href="#campus">Campus Life</a></li>
+          <li><a href="#admissions">Admissions</a></li>
+          <li><a href="#rank-predictor">Rank Predictor</a></li>
+          <li><a href="#events">Events</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="menu-toggle" id="menu-toggle">☰</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="slider-container">
+      <img src="https://www.iitm.ac.in/sites/default/files/styles/hero_image/public/2022-10/IITM-campus.jpg" alt="Slide Image" class="slider-image active" />
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/IIT_Madras_Entrance_2.jpg" alt="Slide Image" class="slider-image" />
+      <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/IIT_Madras_Research_Lab.jpg" alt="Slide Image" class="slider-image" />
+    </div>
+    <div class="hero-text animate-fade-in" style="background: rgba(0,0,0,0.4); padding: 40px; border-radius: 12px; max-width: 90%; margin: auto; color: white; text-align: center;">
+      <h1>Welcome to the Indian Institute of Technology Madras</h1>
+      <p>Leading the way in engineering, research, and innovation.</p>
+      <a href="#admissions" class="cta-btn animate-pulse">Apply Now</a>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about section fade-in-up" id="about">
+    <h2>About IIT Madras</h2>
+    <p>
+      IIT Madras is one of India's premier institutions, globally recognized for academic excellence and cutting-edge research.
+      Established in 1959, it is home to top faculty, brilliant students, and world-class infrastructure.
+    </p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/IIT_Madras_Entrance_2.jpg" alt="IIT Madras Entrance" />
+  </section>
+
+  <!-- Academics Section -->
+  <section class="academics section fade-in-up" id="academics">
+    <h2>Academics</h2>
+    <p>
+      IIT Madras offers undergraduate, postgraduate, and doctoral programs in engineering, sciences, management, and humanities.
+      The curriculum is designed to foster innovation and research.
+    </p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/IIT_Madras_Research_Lab.jpg" alt="Research Lab" />
+    <img src="https://iitm.ac.in/sites/default/files/inline-images/iitm-campus-1.jpg" alt="Academics Building" width="90%" style="border-radius: 10px; margin-top: 15px;" />
+  </section>
+
+  <!-- Campus Life Section -->
+  <section class="campus section fade-in-up" id="campus">
+    <h2>Campus Life</h2>
+    <p>
+      Experience a vibrant campus filled with student clubs, festivals, sports, and serene nature.
+      IIT Madras has a unique campus located within a national park, offering a peaceful and inspiring environment.
+    </p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/1/1e/IIT_Madras_campus.jpg" alt="Campus Life" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/IIT_Madras_hostel.jpg" alt="Campus Life Hostel" width="90%" style="border-radius: 10px; margin-top: 15px;" />
+  </section>
+
+  <!-- Admissions Section -->
+  <section class="admissions section fade-in-up" id="admissions">
+    <h2>Admissions</h2>
+    <p>
+      Admission to IIT Madras is through national-level exams like JEE Advanced and GATE.
+      Explore undergraduate, postgraduate, and research opportunities on our official portal.
+    </p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5a/IIT_Madras_Innovation_Center.jpg" alt="Innovation Center" />
+  </section>
+
+  <!-- Rank Predictor Section -->
+  <section id="rank-predictor" class="section fade-in-up">
+    <h2>Rank Predictor</h2>
+    <form id="predictForm">
+      <label for="rankInput">Enter Your JEE Advanced Rank:</label>
+      <input type="number" id="rankInput" name="rankInput" min="1" required />
+
+      <label for="categoryInput">Select Category:</label>
+      <select id="categoryInput" name="categoryInput" required>
+        <option value="general">General</option>
+        <option value="obc">OBC</option>
+        <option value="sc">SC</option>
+        <option value="st">ST</option>
+      </select>
+
+      <label for="branchInput">Preferred Branch:</label>
+      <select id="branchInput" name="branchInput" required>
+        <option value="CSE">Computer Science and Engineering</option>
+        <option value="EE">Electrical Engineering</option>
+        <option value="ME">Mechanical Engineering</option>
+        <option value="Aero">Aerospace Engineering</option>
+        <option value="Civil">Civil Engineering</option>
+      </select>
+
+      <button type="submit">Predict</button>
+    </form>
+
+    <div id="rankImages" style="display: flex; justify-content: center; gap: 15px; margin-top: 20px; flex-wrap: wrap;">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Indian_Institute_of_Technology_Madras_Logo.svg" alt="IIT Madras" style="width: 120px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);" />
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/IIT_Bombay_Logo.svg" alt="IIT Bombay" style="width: 120px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);" />
+      <img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/IIT_Delhi_Logo.svg" alt="IIT Delhi" style="width: 120px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);" />
+      <img src="https://upload.wikimedia.org/wikipedia/commons/1/1e/IIT_Kanpur_Logo.svg" alt="IIT Kanpur" style="width: 120px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);" />
+      <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/IIT_Kharagpur_Logo.svg" alt="IIT Kharagpur" style="width: 120px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);" />
+    </div>
+
+    <div id="predictionGrid">
+      <p>Enter your rank and preferences to see predicted IITs and courses.</p>
+    </div>
+
+    <div id="chartContainer">
+      <canvas id="rankChart"></canvas>
+    </div>
+  </section>
+
+  <!-- Events Section -->
+  <section class="events section fade-in-up" id="events">
+    <h2>Events</h2>
+    <p>
+      From technical fests like Shaastra to cultural festivals like Saarang,
+      IIT Madras hosts a range of exciting events that blend learning and fun.
+    </p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Saarang_2019_-_IIT_Madras.jpg" alt="Saarang Festival" />
+    <img src="https://images.collegedunia.com/public/college_data/images/campusimage/1433759034campus3.jpg" alt="IIT Madras Event" width="90%" style="border-radius: 10px; margin-top: 15px;" />
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact section fade-in-up" id="contact">
+    <h2>Contact Us</h2>
+    <p>Email: contact@iitm.ac.in | Phone: +91-44-2257-8000 | Chennai, Tamil Nadu - 600036</p>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rank Predictor - IIT Madras</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="container nav-content">
+      <div class="logo">
+        <img src="https://upload.wikimedia.org/wikipedia/en/4/4a/IIT_Madras_Logo.svg" alt="Logo">
+        <span>IIT Madras</span>
+      </div>
+      <nav>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="index.html#home">Home</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#academics">Academics</a></li>
+          <li><a href="index.html#campus">Campus Life</a></li>
+          <li><a href="index.html#admissions">Admissions</a></li>
+          <li><a href="index.html#rank-predictor">Rank Predictor</a></li>
+          <li><a href="index.html#events">Events</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+        <button class="menu-toggle" id="menu-toggle">☰</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="overlay"></div>
+    <div class="hero-text">
+      <h1>Rank Predictor</h1>
+      <p>Check your chances across top IITs with real data and visual insights.</p>
+    </div>
+  </section>
+
+  <!-- FORM SECTION -->
+  <section class="about">
+    <div class="container">
+      <h2>Enter Your Details</h2>
+      <div style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: center;">
+        <form id="predictForm" style="flex: 1 1 300px; max-width: 400px;">
+          <input id="rankInput" type="number" placeholder="Enter JEE Advanced Rank" required style="width: 100%; padding: 12px; margin-bottom: 15px;" />
+          <select id="categoryInput" style="width: 100%; padding: 12px; margin-bottom: 15px;" required>
+            <option value="">Select Category</option>
+            <option value="general">General</option>
+            <option value="obc">OBC</option>
+            <option value="sc">SC</option>
+            <option value="st">ST</option>
+          </select>
+          <button class="cta-btn" type="submit">Predict</button>
+        </form>
+
+        <div id="predictionResult" class="card" style="flex: 1 1 300px; max-width: 500px;">
+          <h3>Prediction Result</h3>
+          <div id="predictionOutput">
+            <div class="max-w-3xl mx-auto bg-white shadow-lg rounded-2xl p-6 mt-8">
+              <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">🎯 Prediction Results</h2>
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6" id="predictionGrid">
+                <!-- Dynamic IIT prediction results will be inserted here -->
+              </div>
+            </div>
+          </div>
+          <button id="exportPDF" class="cta-btn" style="margin-top: 15px;">Download PDF</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHART SECTION -->
+  <section class="about">
+    <div class="container">
+      <h2>Branch-wise Closing Rank Chart</h2>
+      <canvas id="rankChart"></canvas>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 IIT Madras Clone. All estimations are for educational use only.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const form = document.getElementById('predictForm');
+      const rankInput = document.getElementById('rankInput');
+      const categoryInput = document.getElementById('categoryInput');
+      const output = document.getElementById('predictionOutput');
+      const predictionGrid = document.getElementById('predictionGrid');
+      const chartCanvas = document.getElementById('rankChart');
+      let chartInstance;
+
+      const cutoffData = {
+        madras: {
+          general: [
+            { branch: "CSE", maxRank: 200 },
+            { branch: "EE", maxRank: 600 },
+            { branch: "ME", maxRank: 1200 },
+            { branch: "Aero", maxRank: 2000 },
+            { branch: "Civil", maxRank: 4000 }
+          ],
+          obc: [
+            { branch: "CSE", maxRank: 500 },
+            { branch: "EE", maxRank: 1200 },
+            { branch: "ME", maxRank: 2000 },
+            { branch: "Aero", maxRank: 3000 },
+            { branch: "Civil", maxRank: 5000 }
+          ],
+          sc: [
+            { branch: "CSE", maxRank: 1000 },
+            { branch: "EE", maxRank: 2000 },
+            { branch: "ME", maxRank: 3000 },
+            { branch: "Aero", maxRank: 4000 },
+            { branch: "Civil", maxRank: 6000 }
+          ],
+          st: [
+            { branch: "CSE", maxRank: 1500 },
+            { branch: "EE", maxRank: 2500 },
+            { branch: "ME", maxRank: 3500 },
+            { branch: "Aero", maxRank: 4500 },
+            { branch: "Civil", maxRank: 7000 }
+          ]
+        },
+        bombay: {
+          general: [
+            { branch: "CSE", maxRank: 70 },
+            { branch: "EE", maxRank: 300 },
+            { branch: "ME", maxRank: 1000 },
+            { branch: "Aero", maxRank: 1800 },
+            { branch: "Civil", maxRank: 3500 }
+          ],
+          obc: [
+            { branch: "CSE", maxRank: 200 },
+            { branch: "EE", maxRank: 700 },
+            { branch: "ME", maxRank: 1500 },
+            { branch: "Aero", maxRank: 2500 },
+            { branch: "Civil", maxRank: 4500 }
+          ],
+          sc: [
+            { branch: "CSE", maxRank: 400 },
+            { branch: "EE", maxRank: 1200 },
+            { branch: "ME", maxRank: 2500 },
+            { branch: "Aero", maxRank: 3500 },
+            { branch: "Civil", maxRank: 5500 }
+          ],
+          st: [
+            { branch: "CSE", maxRank: 600 },
+            { branch: "EE", maxRank: 1500 },
+            { branch: "ME", maxRank: 3000 },
+            { branch: "Aero", maxRank: 4000 },
+            { branch: "Civil", maxRank: 6000 }
+          ]
+        },
+        delhi: {
+          general: [
+            { branch: "CSE", maxRank: 110 },
+            { branch: "EE", maxRank: 400 },
+            { branch: "ME", maxRank: 1100 },
+            { branch: "Aero", maxRank: 1900 },
+            { branch: "Civil", maxRank: 3800 }
+          ],
+          obc: [
+            { branch: "CSE", maxRank: 300 },
+            { branch: "EE", maxRank: 900 },
+            { branch: "ME", maxRank: 1800 },
+            { branch: "Aero", maxRank: 2800 },
+            { branch: "Civil", maxRank: 4800 }
+          ],
+          sc: [
+            { branch: "CSE", maxRank: 600 },
+            { branch: "EE", maxRank: 1500 },
+            { branch: "ME", maxRank: 2800 },
+            { branch: "Aero", maxRank: 3800 },
+            { branch: "Civil", maxRank: 5800 }
+          ],
+          st: [
+            { branch: "CSE", maxRank: 800 },
+            { branch: "EE", maxRank: 1800 },
+            { branch: "ME", maxRank: 3200 },
+            { branch: "Aero", maxRank: 4200 },
+            { branch: "Civil", maxRank: 6200 }
+          ]
+        },
+        kanpur: {
+          general: [
+            { branch: "CSE", maxRank: 220 },
+            { branch: "EE", maxRank: 650 },
+            { branch: "ME", maxRank: 1400 },
+            { branch: "Aero", maxRank: 2100 },
+            { branch: "Civil", maxRank: 4200 }
+          ],
+          obc: [
+            { branch: "CSE", maxRank: 500 },
+            { branch: "EE", maxRank: 1300 },
+            { branch: "ME", maxRank: 2500 },
+            { branch: "Aero", maxRank: 3500 },
+            { branch: "Civil", maxRank: 5500 }
+          ],
+          sc: [
+            { branch: "CSE", maxRank: 800 },
+            { branch: "EE", maxRank: 1800 },
+            { branch: "ME", maxRank: 3200 },
+            { branch: "Aero", maxRank: 4200 },
+            { branch: "Civil", maxRank: 6200 }
+          ],
+          st: [
+            { branch: "CSE", maxRank: 1000 },
+            { branch: "EE", maxRank: 2000 },
+            { branch: "ME", maxRank: 3500 },
+            { branch: "Aero", maxRank: 4500 },
+            { branch: "Civil", maxRank: 7000 }
+          ]
+        }
+      };
+
+      function predictByIIT(iit, rank, category) {
+        const data = cutoffData[iit]?.[category];
+        if (!data) return [];
+        return data.filter(branch => rank <= branch.maxRank);
+      }
+
+      function buildChart() {
+        const labels = ["CSE", "EE", "ME", "Aero", "Civil"];
+        const categories = Object.keys(cutoffData);
+        const datasets = categories.map((iit, idx) => {
+          return {
+            label: iit.toUpperCase(),
+            data: cutoffData[iit].general.map(d => d.maxRank),
+            backgroundColor: `hsl(${idx * 70}, 70%, 60%)`
+          };
+        });
+
+        if (chartInstance) chartInstance.destroy();
+
+        chartInstance = new Chart(chartCanvas, {
+          type: 'bar',
+          data: {
+            labels,
+            datasets
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              title: {
+                display: true,
+                text: 'Branch-wise General Category Closing Ranks'
+              }
+            }
+          }
+        });
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const rank = parseInt(rankInput.value);
+        const category = categoryInput.value.toLowerCase();
+        if (!rank || rank < 1) {
+          output.innerHTML = "<p>Please enter a valid positive rank.</p>";
+          predictionGrid.innerHTML = "";
+          if (chartInstance) chartInstance.destroy();
+          return;
+        }
+        if (!category) {
+          output.innerHTML = "<p>Please select a category.</p>";
+          predictionGrid.innerHTML = "";
+          if (chartInstance) chartInstance.destroy();
+          return;
+        }
+
+        let finalResult = '';
+        Object.keys(cutoffData).forEach(iit => {
+          const matched = predictByIIT(iit, rank, category);
+          if (matched.length) {
+            finalResult += `<h4>${iit.toUpperCase()}</h4><ul>`;
+            matched.forEach(b => finalResult += `<li>✅ ${b.branch}</li>`);
+            finalResult += '</ul>';
+          }
+        });
+
+        if (!finalResult) {
+          finalResult = `<p>No matches found in top IITs for your rank.</p>`;
+        }
+
+        output.innerHTML = finalResult;
+
+        buildChart();
+      });
+    });
+  </script>
+  <script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+</body>
+</html>

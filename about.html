@@ -1,107 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>About IIT Madras Clone</title>
-    <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About IIT Madras</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <div class="header-container">
-            <h1>About IIT Madras</h1>
-            <nav>
-                <ul class="main-nav">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="courses.html">Courses</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropbtn">Predictor ▼</a>
-                        <div class="dropdown-content">
-                            <a href="predictor.html">JEE Advanced 2025 Predictor</a>
-                        </div>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropbtn">Explore ▼</a>
-                        <div class="dropdown-content">
-                            <a href="events.html">Upcoming Events</a>
-                        </div>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropbtn">All IITs ▼</a>
-                        <div class="dropdown-content">
-                            <a href="#">IIT Bombay</a>
-                            <a href="#">IIT Delhi</a>
-                            <a href="#">IIT Kanpur</a>
-                            <a href="#">IIT Kharagpur</a>
-                            <a href="#">IIT Roorkee</a>
-                            <a href="#">IIT Guwahati</a>
-                            <a href="#">IIT Hyderabad</a>
-                            <a href="#">IIT BHU</a>
-                            <a href="#">IIT Gandhinagar</a>
-                            <a href="#">IIT Ropar</a>
-                            <a href="#">IIT Patna</a>
-                            <a href="#">IIT Indore</a>
-                            <a href="#">IIT Mandi</a>
-                            <a href="#">IIT Jodhpur</a>
-                            <a href="#">IIT (ISM) Dhanbad</a>
-                            <a href="#">IIT Bhubaneswar</a>
-                            <a href="#">IIT Palakkad</a>
-                            <a href="#">IIT Tirupati</a>
-                            <a href="#">IIT Varanasi</a>
-                            <a href="#">IIT Jammu</a>
-                            <a href="#">IIT Dharwad</a>
-                        </div>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-    <main>
-        <section class="about-history">
-            <h2>History and Vision</h2>
-            <p>Established in 1959, IIT Madras is one of the premier institutes of engineering and technology in India. It aims to provide world-class education, foster research and innovation, and contribute to the nation's development.</p>
-        </section>
-        <section class="about-mission">
-            <h2>Mission</h2>
-            <ul>
-                <li>To advance knowledge in science, engineering, and technology.</li>
-                <li>To nurture creativity and innovation among students and faculty.</li>
-                <li>To collaborate with industry and academia globally.</li>
-                <li>To contribute to sustainable development and societal welfare.</li>
-            </ul>
-        </section>
-        <section class="all-iits-info">
-            <h2>About All IITs</h2>
-            <p>The Indian Institutes of Technology (IITs) are autonomous public technical universities across India, known for excellence in education and research.</p>
-            <ul class="iit-list">
-                <li><a href="#">IIT Bombay</a></li>
-                <li><a href="#">IIT Delhi</a></li>
-                <li><a href="#">IIT Kanpur</a></li>
-                <li><a href="#">IIT Kharagpur</a></li>
-                <li><a href="#">IIT Roorkee</a></li>
-                <li><a href="#">IIT Guwahati</a></li>
-                <li><a href="#">IIT Hyderabad</a></li>
-                <li><a href="#">IIT BHU</a></li>
-                <li><a href="#">IIT Gandhinagar</a></li>
-                <li><a href="#">IIT Ropar</a></li>
-                <li><a href="#">IIT Patna</a></li>
-                <li><a href="#">IIT Indore</a></li>
-                <li><a href="#">IIT Mandi</a></li>
-                <li><a href="#">IIT Jodhpur</a></li>
-                <li><a href="#">IIT (ISM) Dhanbad</a></li>
-                <li><a href="#">IIT Bhubaneswar</a></li>
-                <li><a href="#">IIT Palakkad</a></li>
-                <li><a href="#">IIT Tirupati</a></li>
-                <li><a href="#">IIT Varanasi</a></li>
-                <li><a href="#">IIT Jammu</a></li>
-                <li><a href="#">IIT Dharwad</a></li>
-            </ul>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 IIT Madras Clone. All rights reserved.</p>
-    </footer>
-    <script src="script.js"></script>
+
+  <!-- NAVBAR (same as homepage) -->
+  <header class="navbar">
+    <div class="container nav-content">
+      <div class="logo">
+        <img src="https://upload.wikimedia.org/wikipedia/en/4/4a/IIT_Madras_Logo.svg" alt="IIT Madras Logo">
+        <span>IIT Madras</span>
+      </div>
+  <nav>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html#home">Home</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#academics">Academics</a></li>
+      <li><a href="index.html#campus">Campus Life</a></li>
+      <li><a href="index.html#admissions">Admissions</a></li>
+      <li><a href="index.html#rank-predictor">Rank Predictor</a></li>
+      <li><a href="index.html#events">Events</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <button class="menu-toggle" id="menu-toggle">☰</button>
+  </nav>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="overlay"></div>
+    <div class="hero-text">
+      <h1>About IIT Madras</h1>
+      <p>Excellence in Education, Research and Innovation Since 1959.</p>
+    </div>
+  </section>
+
+  <!-- INSTITUTE INTRO -->
+  <section class="about">
+    <div class="container">
+      <h2>Who We Are</h2>
+      <p>IIT Madras is one of India’s premier technical institutions. Established in 1959 with technical and financial assistance from the Government of the Federal Republic of Germany, the institute has grown into a hub of academic brilliance, fostering talent in science, engineering, and technology.</p>
+      <p>The lush 600-acre campus is home to over 10,000 students and 600+ faculty members engaged in cutting-edge research and academic excellence.</p>
+    </div>
+  </section>
+
+  <!-- MISSION & VISION -->
+  <section class="cards">
+    <div class="container card-grid">
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1573497161056-d9e0c59b2e9a" alt="Mission">
+        <h3>Our Mission</h3>
+        <p>To be a leading center of excellence in engineering education and research, producing globally competent professionals.</p>
+      </div>
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1504384764586-bb4cdc1707b0" alt="Vision">
+        <h3>Our Vision</h3>
+        <p>To foster innovation and nurture leaders who create impact across the globe in science, technology, and society.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACHIEVEMENTS -->
+  <section class="about">
+    <div class="container">
+      <h2>Our Achievements</h2>
+      <ul style="margin-top: 1rem; text-align: left; max-width: 800px; margin-left: auto; margin-right: auto;">
+        <li>🇮🇳 Ranked #1 Engineering Institute in India (NIRF Rankings - 5 years in a row)</li>
+        <li>🌍 Global research partnerships with over 100 institutions worldwide</li>
+        <li>🏆 Over 200 patents filed annually</li>
+        <li>💼 Incubated 300+ startups via IITM Research Park</li>
+        <li>👨‍🎓 Alumni across top firms like Google, ISRO, Microsoft, and McKinsey</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>Explore Our Academic Excellence</h2>
+      <p>Discover diverse programs and top-tier faculty at IIT Madras.</p>
+      <a href="academics.html" class="cta-btn-secondary">View Programs</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 IIT Madras Clone. For educational purposes only.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
