@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>JEE Advanced 2025 Course & IIT Predictor - IIT Madras Clone</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/IIT_Madras_Logo.svg/1200px-IIT_Madras_Logo.svg.png" alt="IIT Madras Logo" class="header-logo" />
+            <h1 class="logo">Indian Institute of Technology Madras</h1>
+            <p class="established">Established 1959</p>
+            <nav>
+                <ul class="main-nav">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li class="dropdown">
+                        <button class="dropbtn">Predictor</button>
+                        <div class="dropdown-content">
+                            <a href="predictor.html">JEE Advanced 2025 Predictor</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <button class="dropbtn">All IITs</button>
+                        <div class="dropdown-content">
+                            <a href="#">IIT Bombay</a>
+                            <a href="#">IIT Delhi</a>
+                            <a href="#">IIT Kanpur</a>
+                            <a href="#">IIT Kharagpur</a>
+                            <a href="#">IIT Roorkee</a>
+                            <a href="#">IIT Guwahati</a>
+                            <a href="#">IIT Hyderabad</a>
+                            <a href="#">IIT BHU</a>
+                            <a href="#">IIT Gandhinagar</a>
+                            <a href="#">IIT Ropar</a>
+                            <a href="#">IIT Patna</a>
+                            <a href="#">IIT Indore</a>
+                            <a href="#">IIT Mandi</a>
+                            <a href="#">IIT Jodhpur</a>
+                            <a href="#">IIT (ISM) Dhanbad</a>
+                            <a href="#">IIT Bhubaneswar</a>
+                            <a href="#">IIT Palakkad</a>
+                            <a href="#">IIT Tirupati</a>
+                            <a href="#">IIT Varanasi</a>
+                            <a href="#">IIT Jammu</a>
+                            <a href="#">IIT Dharwad</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="predictor-container">
+            <div class="predictor-form">
+                <h2>JEE Advanced 2025 Predictor</h2>
+                <form id="predictorForm">
+                    <label for="rank">Enter Your JEE Advanced Rank:</label>
+                    <input type="number" id="rank" name="rank" min="1" required />
+
+                    <label for="category">Select Category:</label>
+                    <select id="category" name="category" required>
+                        <option value="GEN">GEN</option>
+                        <option value="OBC">OBC</option>
+                        <option value="SC">SC</option>
+                        <option value="ST">ST</option>
+                    </select>
+
+                    <label for="branch">Preferred Branch:</label>
+                    <select id="branch" name="branch" required>
+                        <option value="CSE">Computer Science and Engineering</option>
+                        <option value="ECE">Electronics and Communication Engineering</option>
+                        <option value="ME">Mechanical Engineering</option>
+                        <option value="CE">Civil Engineering</option>
+                        <option value="CH">Chemical Engineering</option>
+                        <option value="AE">Aerospace Engineering</option>
+                    </select>
+
+                    <button type="submit">Predict</button>
+                </form>
+            </div>
+            <div class="predictor-result">
+                <h2>Prediction Results</h2>
+                <div id="resultContent">
+                    <p>Enter your rank and preferences to see predicted IITs and courses.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 IIT Madras Clone. All rights reserved.</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

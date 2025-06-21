@@ -3,20 +3,29 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Courses Offered - IIT Madras Clone</title>
+    <title>Upcoming Events - IIT Madras Clone</title>
     <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
     <header>
         <div class="header-container">
-            <h1>Courses Offered at IIT Madras</h1>
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/IIT_Madras_Logo.svg/1200px-IIT_Madras_Logo.svg.png" alt="IIT Madras Logo" class="header-logo" />
+            <h1 class="logo">Indian Institute of Technology Madras</h1>
+            <p class="established">Established 1959</p>
             <nav>
                 <ul class="main-nav">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="about.html">About</a></li>
                     <li><a href="courses.html">Courses</a></li>
+                    <li><a href="predictor.html">Predictor</a></li>
                     <li class="dropdown">
-                        <a href="#" class="dropbtn">All IITs</a>
+                        <button class="dropbtn">Explore</button>
+                        <div class="dropdown-content" id="exploreDropdown">
+                            <a href="events.html">Upcoming Events</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <button class="dropbtn">All IITs</button>
                         <div class="dropdown-content">
                             <a href="#">IIT Bombay</a>
                             <a href="#">IIT Delhi</a>
@@ -46,28 +55,11 @@
         </div>
     </header>
     <main>
-        <section class="courses-list">
-            <h2>Undergraduate Courses</h2>
-            <ul>
-                <li>B.Tech in Computer Science and Engineering</li>
-                <li>B.Tech in Electrical Engineering</li>
-                <li>B.Tech in Mechanical Engineering</li>
-                <li>B.Tech in Civil Engineering</li>
-                <li>B.Tech in Chemical Engineering</li>
-                <li>B.Tech in Aerospace Engineering</li>
-            </ul>
-        </section>
-        <section class="courses-list">
-            <h2>Postgraduate Courses</h2>
-            <ul>
-                <li>M.Tech in Computer Science and Engineering</li>
-                <li>M.Tech in Electrical Engineering</li>
-                <li>M.Tech in Mechanical Engineering</li>
-                <li>M.Tech in Civil Engineering</li>
-                <li>M.Tech in Chemical Engineering</li>
-                <li>M.Tech in Aerospace Engineering</li>
-                <li>Ph.D. Programs in various disciplines</li>
-            </ul>
+        <section class="events-container" id="eventsContainer">
+            <h2>Upcoming Events</h2>
+            <div class="events-list" id="eventsList">
+                <!-- Event cards will be dynamically inserted here -->
+            </div>
         </section>
     </main>
     <footer>

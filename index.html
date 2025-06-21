@@ -1,28 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>IIT Madras Clone</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>IIT Madras Clone - Home</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
 </head>
 <body>
     <header>
-        <h1>Welcome to IIT Madras Clone</h1>
+        <div class="header-container">
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/IIT_Madras_Logo.svg/1200px-IIT_Madras_Logo.svg.png" alt="IIT Madras Logo" class="header-logo" />
+            <h1 class="logo">Indian Institute of Technology Madras</h1>
+            <p class="established">Established 1959</p>
+            <nav>
+                <ul class="main-nav">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropbtn">Predictor ▼</a>
+                        <div class="dropdown-content">
+                            <a href="predictor.html">JEE Advanced 2025 Predictor</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropbtn">Explore ▼</a>
+                        <div class="dropdown-content">
+                            <a href="events.html">Upcoming Events</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropbtn">All IITs ▼</a>
+                        <div class="dropdown-content">
+                            <a href="#">IIT Bombay</a>
+                            <a href="#">IIT Delhi</a>
+                            <a href="#">IIT Kanpur</a>
+                            <a href="#">IIT Kharagpur</a>
+                            <a href="#">IIT Roorkee</a>
+                            <a href="#">IIT Guwahati</a>
+                            <a href="#">IIT Hyderabad</a>
+                            <a href="#">IIT BHU</a>
+                            <a href="#">IIT Gandhinagar</a>
+                            <a href="#">IIT Ropar</a>
+                            <a href="#">IIT Patna</a>
+                            <a href="#">IIT Indore</a>
+                            <a href="#">IIT Mandi</a>
+                            <a href="#">IIT Jodhpur</a>
+                            <a href="#">IIT (ISM) Dhanbad</a>
+                            <a href="#">IIT Bhubaneswar</a>
+                            <a href="#">IIT Palakkad</a>
+                            <a href="#">IIT Tirupati</a>
+                            <a href="#">IIT Varanasi</a>
+                            <a href="#">IIT Jammu</a>
+                            <a href="#">IIT Dharwad</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </header>
-    <nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="courses.html">Courses</a></li>
-        </ul>
-    </nav>
     <main>
-        <h2>About IIT Madras</h2>
-        <p>This is a clone of the IIT Madras official website.</p>
+        <section class="popup-notification" id="popupNotification">
+            <p><strong>Current Courses:</strong> Admissions open for JEE Advanced 2025. Apply now!</p>
+            <button id="closePopup">X</button>
+        </section>
+        <section class="hero">
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/IIT_Madras_Logo.svg/1200px-IIT_Madras_Logo.svg.png" alt="IIT Madras Logo" class="hero-logo" />
+            <h2>Welcome to the Indian Institute of Technology Madras</h2>
+            <p>Leading the way in engineering, research, and innovation.</p>
+            <a href="about.html" class="btn-primary">Learn More</a>
+        </section>
+        <section class="features">
+            <div class="feature">
+                <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80" alt="Research" />
+                <h3>World-Class Research</h3>
+                <p>Cutting-edge research facilities and projects across multiple disciplines.</p>
+            </div>
+            <div class="feature">
+                <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=400&q=80" alt="Campus Life" />
+                <h3>Vibrant Campus Life</h3>
+                <p>A diverse and inclusive community with numerous clubs, events, and activities.</p>
+            </div>
+            <div class="feature">
+                <img src="https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?auto=format&fit=crop&w=400&q=80" alt="Innovation" />
+                <h3>Innovation & Entrepreneurship</h3>
+                <p>Strong support for startups and industry collaborations.</p>
+            </div>
+        </section>
+        <section class="news-events">
+            <h3>Latest News & Events</h3>
+            <ul>
+                <li>Convocation Ceremony 2023 scheduled for July 15.</li>
+                <li>New research center inaugurated for sustainable energy.</li>
+                <li>International conference on AI and Machine Learning hosted.</li>
+            </ul>
+        </section>
+        <section class="brochure">
+            <h3>Download Our Brochure</h3>
+            <p>Get detailed information about courses, campus life, and admissions.</p>
+            <a href="brochure.pdf" download class="btn-primary">Download Brochure (PDF)</a>
+        </section>
+        <section class="course-plan">
+            <h3>Course Plan</h3>
+            <p>Explore the detailed course plan for undergraduate and postgraduate programs.</p>
+            <a href="course-plan.html" class="btn-primary">View Course Plan</a>
+        </section>
+        <section class="all-iits">
+            <h3>Explore All IITs</h3>
+            <ul class="iit-list">
+                <li><a href="#">IIT Bombay</a></li>
+                <li><a href="#">IIT Delhi</a></li>
+                <li><a href="#">IIT Kanpur</a></li>
+                <li><a href="#">IIT Kharagpur</a></li>
+                <li><a href="#">IIT Roorkee</a></li>
+                <li><a href="#">IIT Guwahati</a></li>
+                <li><a href="#">IIT Hyderabad</a></li>
+                <li><a href="#">IIT BHU</a></li>
+                <li><a href="#">IIT Gandhinagar</a></li>
+                <li><a href="#">IIT Ropar</a></li>
+                <li><a href="#">IIT Patna</a></li>
+                <li><a href="#">IIT Indore</a></li>
+                <li><a href="#">IIT Mandi</a></li>
+                <li><a href="#">IIT Jodhpur</a></li>
+                <li><a href="#">IIT (ISM) Dhanbad</a></li>
+                <li><a href="#">IIT Bhubaneswar</a></li>
+                <li><a href="#">IIT Palakkad</a></li>
+                <li><a href="#">IIT Tirupati</a></li>
+                <li><a href="#">IIT Varanasi</a></li>
+                <li><a href="#">IIT Jammu</a></li>
+                <li><a href="#">IIT Dharwad</a></li>
+            </ul>
+        </section>
     </main>
     <footer>
-        <p>&copy; 2023 IIT Madras Clone</p>
+        <p>&copy; 2023 IIT Madras Clone. All rights reserved.</p>
     </footer>
     <script src="script.js"></script>
 </body>
